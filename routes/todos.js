@@ -24,4 +24,39 @@ router.post('/', async (req, res) => {
    }
 });
 
+router.put('/:id', async (req, res) => {
+   try {
+      const id = +req.params.id;
+      const newData = req.body;
+
+      if (!(Number.isInteger(id) && id > 0) || !newData.text || !newData.date) {
+         res.status(400).send({error: 'Please provide correct id, text and date'});
+
+         return;
+      }
+      
+      res.json(await todoList.editTodo(id, newData));
+   }
+   catch (err) {
+      res.status(500).send(err);
+   }
+});
+
+router.delete('/:id', async (req, res) => {
+   try {
+      const id = +req.params.id;
+
+      if (!(Number.isInteger(id) && id > 0)) {
+         res.status(400).send({error: 'Please provide correct id'});
+
+         return;
+      }
+
+      res.json(await todoList.deleteTodo(id));
+   }
+   catch (err) {
+      res.status(500).send(err);
+   }
+});
+
 module.exports = router;
