@@ -5,9 +5,9 @@ const { response } = require('express');
 async function getUser(user, password) {
    const userId = await db.query(`SELECT id FROM users WHERE username = '${user}' AND password = '${password}'`);
    
-   const answer = userId.length !== 0 ? userId[0].id : "User not found";
+   const answer = userId.length !== 0 ? userId[0] : "User not found";
 
-   return { answer };
+   return answer ;
 }
 
 module.exports = {
