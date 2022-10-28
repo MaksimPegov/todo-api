@@ -20,4 +20,27 @@ router.get('/:user&:password', async (req, res) => {
    }
 });
 
+router.post('/', async (req, res) => {
+   try {
+      const user = req.body;
+
+      if(!user.username || !user.password){
+         res.status(400).send({error: 'Please provide correct username and password'});
+         return;
+      }
+
+      const result = await userList.addUser(user);
+
+      res.json(result);
+   }
+   catch (err) {
+      if(err.message.includes('Duplicate')){
+         message = 'User with username already exists';
+         res.status(400).send(message);
+         return
+      }
+      res.status(500).send(err);
+   }
+});
+
 module.exports = router;

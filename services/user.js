@@ -10,6 +10,19 @@ async function getUser(user, password) {
    return answer ;
 }
 
+async function addUser(user) {
+   const result = await db.query(`INSERT INTO users (username, password) VALUES ('${user.username}', '${user.password}')`);
+
+   let message = 'Error in creating user';
+
+   if (result.affectedRows) {
+      message = 'User created successfully';
+   }
+
+   return message ;
+}
+
 module.exports = {
    getUser,
+   addUser,
 };
