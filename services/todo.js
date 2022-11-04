@@ -2,8 +2,8 @@ const db = require('./db');
 const config = require('../config');
 const { response } = require('express');
 
-async function getTodoList() {
-   const list = await db.query('SELECT * FROM todos');
+async function getTodoList(id) {
+   const list = await db.query(`SELECT * FROM todos WHERE user_id = ${id}`);
 
    return list;
 }

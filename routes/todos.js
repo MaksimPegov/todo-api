@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const todoList = require('../services/todo');
 
-router.get('/', async (req, res) => {
+router.get('/:id', async (req, res) => {
    try {
-      const list = await todoList.getTodoList();
+      const id = req.params.id;
+      const list = await todoList.getTodoList(id);
 
       res.json(list);
    } catch (err) {
