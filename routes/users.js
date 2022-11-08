@@ -35,7 +35,7 @@ router.post('/', async (req, res) => {
    }
    catch (err) {
       if(err.message.includes('Duplicate')){
-         message = 'User with username already exists';
+         message = 'This username is already used';
          res.status(400).send(message);
          return
       }
